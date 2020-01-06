@@ -1,0 +1,10 @@
+# Project exclude paths
+/cmake-build-debug/*
+/.idea/*
+/.vs/*
+/out/*
+/testData/*
+/data.in
+/py_manual.pdf
+/test.py
+/*.o

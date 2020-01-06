@@ -1,0 +1,3 @@
+C:/Users/skysz/Desktop/study/c/pythonInterpreter/Python_Assignment-master/int/out/build/x64-Debug/CMakeFiles/python_interpreter.dir
+C:/Users/skysz/Desktop/study/c/pythonInterpreter/Python_Assignment-master/int/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/skysz/Desktop/study/c/pythonInterpreter/Python_Assignment-master/int/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

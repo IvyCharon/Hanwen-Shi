@@ -1,0 +1,4 @@
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /mnt/c/Users/skysz/Desktop/study/c/pythonInterpreter/Python_Assignment-master/int
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/c/Users/skysz/Desktop/study/c/pythonInterpreter/Python_Assignment-master/int/cmake-build-debug

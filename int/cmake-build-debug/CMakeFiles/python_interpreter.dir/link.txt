@@ -1,0 +1,1 @@
+/usr/bin/c++     -g -g   CMakeFiles/python_interpreter.dir/integer.cpp.o CMakeFiles/python_interpreter.dir/main.cpp.o  -o python_interpreter 
