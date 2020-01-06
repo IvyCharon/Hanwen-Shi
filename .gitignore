@@ -8,8 +8,3 @@
 /py_manual.pdf
 /test.py
 /*.o
-/int/.idea/*
-/int/.vs/*
-/int/cmake-build-debug/*
-/int/out/*
-/int/main.exe
