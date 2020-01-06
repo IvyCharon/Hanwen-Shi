@@ -452,7 +452,7 @@ void print(const alltype &a)
             else std::cout<<std::string("False");
             break;
         case 2:
-            printf("%.6lf",&a.type2);
+            printf("%.6lf",a.type2);
             break;
         case 3:
             std::cout<<a.type3;

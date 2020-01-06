@@ -3,7 +3,7 @@
 #include "integer.h"
 #include <cstring>
 #include <iostream>
-#include <stdio.h>
+#include <cstdio>
 class alltype
 {
     friend alltype operator+(const alltype &a,const alltype &b);

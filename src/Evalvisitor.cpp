@@ -333,7 +333,21 @@ antlrcpp::Any EvalVisitor::visitTerm(Python3Parser::TermContext *ctx)//
                 ans = ans * tmp;
                 break;
             case 1:
-                ans = (double) ans / (double) tmp;
+                if(ans.now == 0)
+                {
+                    ans.type2 = (double)ans.type0;
+                    ans.now = 2;
+                    ans.type0 = NULL;
+                }
+                if(ans.now == 1)
+                {
+                    ans.type2 = (double)ans.type1;
+                    ans.now = 2;
+                    ans.type1 = NULL;
+                }
+                if(tmp.now == 0)ans.type2 = ans.type2 / (double)tmp.type0;
+                ans.type2 = ans.type2;
+                if(tmp.now == 2)ans.type2 = ans.type2 / tmp.type2;
                 break;
             case 2:
                 ans = ans / tmp;
