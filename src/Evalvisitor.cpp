@@ -11,27 +11,29 @@ antlrcpp::Any EvalVisitor::visitFile_input(Python3Parser::File_inputContext *ctx
 {
     return visitChildren(ctx);
 }
-/*
+
 antlrcpp::Any EvalVisitor::visitFuncdef(Python3Parser::FuncdefContext *ctx)//
 {
-    std::string na = ctx -> NAME() -> toString();
+    /*std::string na = ctx -> NAME() -> toString();
     funs ftmp;
     ftmp.fname = na;
     ftmp.fsuite = ctx -> suite();
     ftmp.ftypelist = visitParameters(ctx -> parameters()).as<std::vector<alltype> >();
-    fmap.insert(std::pair<std::string,funs>(ftmp.fname,ftmp));
-    return nullptr;
+    fmap.insert(std::pair<std::string,funs>(ftmp.fname,ftmp));*/
+    //return nullptr;
+    return visitChildren(ctx);
 }
 
 antlrcpp::Any EvalVisitor::visitParameters(Python3Parser::ParametersContext *ctx)//
 {
-    if(ctx ->typedargslist() != nullptr) return visitTypedargslist(ctx -> typedargslist());
-    else return std::vector<alltype>(0);
+    //if(ctx ->typedargslist() != nullptr) return visitTypedargslist(ctx -> typedargslist());
+    //else return std::vector<alltype>(0);
+    return visitChildren(ctx);
 }
 
 antlrcpp::Any EvalVisitor::visitTypedargslist(Python3Parser::TypedargslistContext *ctx)//
 {
-    std::vector<alltype> ans;
+    /*std::vector<alltype> ans;
     std::string k;
     alltype tmp;
     for(int i = 0;i < ctx -> test().size();++ i)
@@ -47,14 +49,16 @@ antlrcpp::Any EvalVisitor::visitTypedargslist(Python3Parser::TypedargslistContex
         tmp.name = k;
         ans.push_back(tmp);
     }
-    return ans;
+    return ans;*/
+    return visitChildren(ctx);
 }
 
 antlrcpp::Any EvalVisitor::visitTfpdef(Python3Parser::TfpdefContext *ctx)//
 {
-    return ctx -> NAME() ->toString();
+    //return ctx -> NAME() ->toString();
+    return visitChildren(ctx);
 }
-*/
+
 antlrcpp::Any EvalVisitor::visitStmt(Python3Parser::StmtContext *ctx)//
 {
     if(ctx -> simple_stmt() != nullptr)return visitSimple_stmt(ctx -> simple_stmt());
