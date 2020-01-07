@@ -206,9 +206,9 @@ antlrcpp::Any EvalVisitor::visitIf_stmt(Python3Parser::If_stmtContext *ctx)//
     go.push_back(mm);
     for(int i = 0;i < ctx -> test().size();++ i)
     {
-        if(visitTest(ctx -> test()[i]).as<alltype>().type1)
+        if(visitTest(ctx -> test(i)).as<alltype>().type1)
         {
-            visitSuite(ctx -> suite()[i]);
+            visitSuite(ctx -> suite(i));
             go.pop_back();
             return nullptr;
         }
@@ -240,12 +240,12 @@ antlrcpp::Any EvalVisitor::visitWhile_stmt(Python3Parser::While_stmtContext *ctx
 antlrcpp::Any EvalVisitor::visitSuite(Python3Parser::SuiteContext *ctx)//
 {
     if(ctx -> simple_stmt() != nullptr)return visitSimple_stmt(ctx -> simple_stmt());
-    std::vector<alltype> ans;
-    antlrcpp::Any tmp;
+    //std::vector<alltype> ans;
+    //antlrcpp::Any tmp;
     for(int i = 0;i < ctx -> stmt().size();++ i)
     {
         //if(visitStmt(ctx -> stmt(i)).is<alltype>())
-            tmp = visitStmt(ctx -> stmt(i));
+            /*tmp = */visitStmt(ctx -> stmt(i));
             //for(int j = 0;j < tmp.size();++ j)
               //  ans.push_back(tmp[j]);
         //else visitStmt(ctx -> stmt(i));
@@ -396,7 +396,7 @@ antlrcpp::Any EvalVisitor::visitTerm(Python3Parser::TermContext *ctx)//
                     ans.type1 = NULL;
                 }
                 if(tmp.now == 0)ans.type2 = ans.type2 / (double)tmp.type0;
-                ans.type2 = ans.type2;
+                if(tmp.type1)ans.type2 = ans.type2;
                 if(tmp.now == 2)ans.type2 = ans.type2 / tmp.type2;
                 break;
             case 2:
@@ -447,6 +447,7 @@ antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx)/
         alltype tmp;
         tmp = visitAtom(ctx -> atom()).as<alltype>();
         std::vector<alltype> out;
+
         if(ctx -> atom() -> NAME() -> toString() == "print")
         {
             //nowf = 1;
@@ -673,8 +674,12 @@ antlrcpp::Any EvalVisitor::visitArglist(Python3Parser::ArglistContext *ctx)//
     //if(maps.empty() || nowf)
     //{
         std::vector<alltype> ans;
+        alltype tmp;
         for(int i = 0;i < ctx -> argument().size();++ i)
-            ans.push_back(visitArgument(ctx -> argument(i)).as<alltype>());
+        {
+            tmp = visitArgument(ctx -> argument(i)).as<alltype>();
+            ans.push_back(tmp);
+        }
         return ans;
     //}
     /*for(int i = 0;i < ctx -> argument().size();++ i)
