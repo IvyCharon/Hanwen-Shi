@@ -2,16 +2,16 @@
 
 std::map<std::string,alltype> values;
 std::vector<ConBreRet> go;
-std::stack<std::map<std::string,alltype> > maps;
-std::map<std::string,funs> fmap;
-funs nowfunc;
+//std::stack<std::map<std::string,alltype> > maps;
+//std::map<std::string,funs> fmap;
+//funs nowfunc;
 int nowf = 0;
 
 antlrcpp::Any EvalVisitor::visitFile_input(Python3Parser::File_inputContext *ctx)//
 {
     return visitChildren(ctx);
 }
-
+/*
 antlrcpp::Any EvalVisitor::visitFuncdef(Python3Parser::FuncdefContext *ctx)//
 {
     std::string na = ctx -> NAME() -> toString();
@@ -54,7 +54,7 @@ antlrcpp::Any EvalVisitor::visitTfpdef(Python3Parser::TfpdefContext *ctx)//
 {
     return ctx -> NAME() ->toString();
 }
-
+*/
 antlrcpp::Any EvalVisitor::visitStmt(Python3Parser::StmtContext *ctx)//
 {
     if(ctx -> simple_stmt() != nullptr)return visitSimple_stmt(ctx -> simple_stmt());
@@ -87,24 +87,24 @@ antlrcpp::Any EvalVisitor::visitExpr_stmt(Python3Parser::Expr_stmtContext *ctx)/
             switch(op)
             {
                 case 0:
-                    if(maps.empty())values[a[i].name] = values[a[i].name] + b[i];
-                    else maps.top()[a[i].name] = maps.top()[a[i].name] + b[i];
+                    /*if(maps.empty())*/values[a[i].name] = values[a[i].name] + b[i];
+                    //else maps.top()[a[i].name] = maps.top()[a[i].name] + b[i];
                     break;
                 case 1:
-                    if(maps.empty())values[a[i].name] = values[a[i].name] - b[i];
-                    else maps.top()[a[i].name] = maps.top()[a[i].name] - b[i];
+                    /*if(maps.empty())*/values[a[i].name] = values[a[i].name] - b[i];
+                    //else maps.top()[a[i].name] = maps.top()[a[i].name] - b[i];
                     break;
                 case 2:
-                    if(maps.empty())values[a[i].name] = values[a[i].name] * b[i];
-                    else maps.top()[a[i].name] = maps.top()[a[i].name] * b[i];
+                    /*if(maps.empty())*/values[a[i].name] = values[a[i].name] * b[i];
+                    //else maps.top()[a[i].name] = maps.top()[a[i].name] * b[i];
                     break;
                 case 3:
-                    if(maps.empty()) values[a[i].name] = (double)values[a[i].name] / (double)b[i];
-                    else maps.top()[a[i].name] = (double)maps.top()[a[i].name] / (double)b[i];
+                    /*if(maps.empty())*/ values[a[i].name] = (double)values[a[i].name] / (double)b[i];
+                    //else maps.top()[a[i].name] = (double)maps.top()[a[i].name] / (double)b[i];
                     break;
                 case 4:
-                    if(maps.empty())
-                    {
+                    /*if(maps.empty())
+                    {*/
                         values[a[i].name] = values[a[i].name] / b[i];
                         if(a[i].now == 2)
                         {
@@ -112,8 +112,8 @@ antlrcpp::Any EvalVisitor::visitExpr_stmt(Python3Parser::Expr_stmtContext *ctx)/
                             a[i].type0 = (integer)a[i].type2;
                             a[i].type2 = NULL;
                         }
-                    }
-                    else
+                    //}
+                    /*else
                     {
                         maps.top()[a[i].name] = maps.top()[a[i].name] / b[i];
                         if(a[i].now == 2)
@@ -122,11 +122,11 @@ antlrcpp::Any EvalVisitor::visitExpr_stmt(Python3Parser::Expr_stmtContext *ctx)/
                             a[i].type0 = (integer)a[i].type2;
                             a[i].type2 = NULL;
                         }
-                    }
+                    }*/
                     break;
                 case 5:
-                    if(maps.empty())values[a[i].name] = values[a[i].name] % b[i];
-                    else maps.top()[a[i].name] = maps.top()[a[i].name] % b[i];
+                    /*if(maps.empty())*/values[a[i].name] = values[a[i].name] % b[i];
+                    //else maps.top()[a[i].name] = maps.top()[a[i].name] % b[i];
                     break;
             }
         }
@@ -142,8 +142,8 @@ antlrcpp::Any EvalVisitor::visitExpr_stmt(Python3Parser::Expr_stmtContext *ctx)/
             for(int j = 0;j < a.size();++ j)
             {
                 b[j].name = a[j].name;
-                if(maps.empty())values[a[j].name] = b[j];
-                else maps.top()[a[j].name] = b[j];
+                /*if(maps.empty())*/values[a[j].name] = b[j];
+                //else maps.top()[a[j].name] = b[j];
             }
 
         }
@@ -240,9 +240,9 @@ antlrcpp::Any EvalVisitor::visitSuite(Python3Parser::SuiteContext *ctx)//
     std::vector<alltype> ans;
     for(int i = 0;i < ctx -> stmt().size();++ i)
     {
-        if(visitStmt(ctx -> stmt(i)).is<alltype>())
+        //if(visitStmt(ctx -> stmt(i)).is<alltype>())
             ans.push_back(visitStmt(ctx -> stmt(i)).as<alltype>());
-        else visitStmt(ctx -> stmt(i));
+        //else visitStmt(ctx -> stmt(i));
         if(go[go.size() - 1].upBre || go[go.size() - 1].upCon || go[go.size() - 1].upRet)break;
     }
     return ans;
@@ -532,7 +532,7 @@ antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx)/
             nowf = 0;
             return ans;
         }
-        std::string ffn = ctx -> atom() -> NAME() -> toString();
+        /*std::string ffn = ctx -> atom() -> NAME() -> toString();
         std::map<std::string,alltype> ftmp;
         nowfunc = fmap[ffn];
         for(int i = 0;i < nowfunc.ftypelist.size();++ i)
@@ -542,7 +542,7 @@ antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx)/
         go.push_back(ftt);
         visitSuite(fmap[ffn].fsuite);
         go.pop_back();
-        maps.pop();
+        maps.pop();*/
     }
 }
 
@@ -574,8 +574,8 @@ antlrcpp::Any EvalVisitor::visitAtom(Python3Parser::AtomContext *ctx)//
     if(ctx -> NAME() != nullptr)
     {
         ans.name = ctx -> NAME() -> toString();
-        if(maps.empty())
-        {
+        //if(maps.empty())
+        //{
             if(values.find(ans.name) == values.end())
             {
                 values.insert(std::pair<std::string,alltype>(ans.name,ans));
@@ -586,8 +586,8 @@ antlrcpp::Any EvalVisitor::visitAtom(Python3Parser::AtomContext *ctx)//
                 ans = values[ans.name];
                 return ans;
             }
-        }
-        else
+        //}
+        /*else
         {
             if(maps.top().find(ans.name) == maps.top().end())
             {
@@ -599,7 +599,7 @@ antlrcpp::Any EvalVisitor::visitAtom(Python3Parser::AtomContext *ctx)//
                 ans = maps.top()[ans.name];
                 return ans;
             }
-        }
+        }*/
     }
     if(ctx -> NUMBER() != nullptr)
     {
@@ -651,39 +651,46 @@ antlrcpp::Any EvalVisitor::visitTestlist(Python3Parser::TestlistContext *ctx)//
     for(int i = 0 ; i < n ; ++ i)
     {
         nn = visitTest(ctx -> test(i));
-        if(nn.is<alltype>())
+        //if(nn.is<alltype>())
             ans.push_back(nn.as<alltype>());
-        else if(nn.is<std::vector<alltype> >())
+        /*else if(nn.is<std::vector<alltype> >())
             for(int j = 0;j < nn.as<std::vector<alltype> >().size();++ j)
-                ans.push_back(nn.as<std::vector<alltype> >()[j]);
+                ans.push_back(nn.as<std::vector<alltype> >()[j]);*/
     }
     return ans;
 }
 
 antlrcpp::Any EvalVisitor::visitArglist(Python3Parser::ArglistContext *ctx)//
 {
-    if(maps.empty() || nowf)
-    {
+    //if(maps.empty() || nowf)
+    //{
         std::vector<alltype> ans;
         for(int i = 0;i < ctx -> argument().size();++ i)
             ans.push_back(visitArgument(ctx -> argument(i)).as<alltype>());
         return ans;
-    }
-    for(int i = 0;i < ctx -> argument().size();++ i)
+    //}
+    /*for(int i = 0;i < ctx -> argument().size();++ i)
     {
         if(visitArgument(ctx -> argument(i)).is<alltype>())
             maps.top()[nowfunc.ftypelist[i].name] = visitArgument(ctx -> argument(i)).as<alltype>();
     }
-    return nullptr;
+    return nullptr;*/
 }
 
 antlrcpp::Any EvalVisitor::visitArgument(Python3Parser::ArgumentContext *ctx)//
 {
     if(ctx -> NAME() == nullptr)return visitTest(ctx -> test());
-    else
+    /*else if(!nowf)
     {
         std::string k = ctx -> NAME() -> toString();
         maps.top()[k] = visitTest(ctx -> test()).as<alltype>();
         return nullptr;
     }
+     else if(nowf)
+     {
+        std::string k = ctx -> NAME() -> toString();
+        values[k] = visitTest(ctx -> test()).as<alltype>();
+        return nullptr;
+     }
+     */
 }
