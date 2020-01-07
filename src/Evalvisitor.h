@@ -6,6 +6,7 @@
 #include "alltype.h"
 #include "integer.h"
 #include <map>
+#include <stack>
 
 class EvalVisitor: public Python3BaseVisitor {
  
@@ -90,6 +91,14 @@ public:
     antlr4::tree::TerminalNode *NOW;
     bool upCon,upBre,upRet;
     ConBreRet(antlr4::tree::TerminalNode *p = nullptr) : NOW(p),upCon(0),upBre(0),upRet(0){};
+};
+
+class funs
+{
+public:
+    std::string fname ;
+    std::vector<alltype> ftypelist;
+    Python3Parser::SuiteContext* fsuite;
 };
 
 #endif //PYTHON_INTERPRETER_EVALVISITOR_H

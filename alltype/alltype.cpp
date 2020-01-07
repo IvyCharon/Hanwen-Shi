@@ -145,7 +145,7 @@ alltype operator*(const alltype &a,const alltype &b)
     {
         ans.now = 0;
         ans.type0 = a.type0;
-        if(!b.now)ans.type0 = 0;
+        if(!b.now)ans.type0 = (integer)0;
         return ans;
     }
     if(a.now == 0 && b.now == 2)
@@ -177,7 +177,7 @@ alltype operator*(const alltype &a,const alltype &b)
     if(a.now == 2 && b.now == 0)
     {
         ans.now = 2;
-        ans.type2 = a.type2 * (double)b.type1;
+        ans.type2 = a.type2 * (double)b.type0;
         return ans;
     }
     if(a.now == 2 && b.now == 1)

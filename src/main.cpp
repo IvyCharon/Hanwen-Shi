@@ -9,8 +9,8 @@ using namespace antlr4;
 int main(int argc, const char* argv[]){
     //todo:please don't modify the code below the construction of ifs if you want to use visitor mode
     //const std::string filepath="testData/test"+std::string(argv[1])+".in";
-    //const std::string filepath="/mnt/c/Users/skysz/Desktop/study/c/pythonInterpreter/Python_Assignment-master/testData/test.in";
-    /*std::ifstream ifs;
+    /*const std::string filepath="/mnt/c/Users/skysz/Desktop/study/c/pythonInterpreter/Python_Assignment-master/testData/test.in";
+    std::ifstream ifs;
     ifs.open(filepath);
     if (!ifs.good()) {
         std::cout<<"bad";

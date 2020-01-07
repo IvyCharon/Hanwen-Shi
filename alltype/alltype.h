@@ -42,7 +42,7 @@ public:
         }
         if(t == 2)
         {
-            double yu,flag = 1;
+            double yu = 0,flag = 1;
             int w;
             for(w = 0;w < k.length();++ w)
             {
@@ -52,13 +52,13 @@ public:
             {
                 for(int i = w - 1;i > 0;-- i)
                 {
-                    yu += flag * (k[i] + '0');
+                    yu += flag * (k[i] - '0');
                     flag *= 10;
                 }
                 flag = 0.1;
                 for(int i = w + 1;i < k.length();++ i)
                 {
-                    yu += flag * (k[i] + '0');
+                    yu += flag * (k[i] - '0');
                     flag /= 10;
                 }
                 yu = - yu;
@@ -68,16 +68,15 @@ public:
                 flag = 1;
                 for(int i = w - 1;i >= 0;-- i)
                 {
-                    yu += flag * (k[i] + '0');
+                    yu += flag * (k[i] - '0');
                     flag *= 10;
                 }
                 flag = 0.1;
                 for(int i = w + 1;i < k.length();++ i)
                 {
-                    yu += flag * (k[i] + '0');
+                    yu += flag * (k[i] - '0');
                     flag /= 10;
                 }
-                yu = - yu;
             }
             type2 = yu;
         }
