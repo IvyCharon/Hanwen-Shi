@@ -241,16 +241,18 @@ antlrcpp::Any EvalVisitor::visitSuite(Python3Parser::SuiteContext *ctx)//
 {
     if(ctx -> simple_stmt() != nullptr)return visitSimple_stmt(ctx -> simple_stmt());
     std::vector<alltype> ans;
-    alltype tmp;
+    antlrcpp::Any tmp;
     for(int i = 0;i < ctx -> stmt().size();++ i)
     {
         //if(visitStmt(ctx -> stmt(i)).is<alltype>())
-            tmp = visitStmt(ctx -> stmt(i)).as<alltype>();
-            ans.push_back(tmp);
+            tmp = visitStmt(ctx -> stmt(i));
+            //for(int j = 0;j < tmp.size();++ j)
+              //  ans.push_back(tmp[j]);
         //else visitStmt(ctx -> stmt(i));
         if(go[go.size() - 1].upBre || go[go.size() - 1].upCon || go[go.size() - 1].upRet)break;
     }
-    return ans;
+    //return ans;
+    return nullptr;
 }
 
 antlrcpp::Any EvalVisitor::visitTest(Python3Parser::TestContext *ctx)//
