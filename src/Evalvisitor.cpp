@@ -145,9 +145,18 @@ antlrcpp::Any EvalVisitor::visitExpr_stmt(Python3Parser::Expr_stmtContext *ctx)/
             a = visitTestlist(ctx -> testlist(i)).as<std::vector<alltype>>();
             for(int j = 0;j < a.size();++ j)
             {
-                b[j].name = a[j].name;
-                /*if(maps.empty())*/values[a[j].name] = b[j];
-                //else maps.top()[a[j].name] = b[j];
+                if(values.find(a[j].name) == values.end())
+                {
+                    alltype tmp = b[j];
+                    tmp.name = a[j].name;
+                    values.insert(std::pair<std::string,alltype>(tmp.name,tmp));
+                }
+                else
+                {
+                    std::string tmp = a[j].name;
+                    values[a[j].name] = b[j];
+                    values[tmp].name = tmp;
+                }
             }
         }
         return nullptr;

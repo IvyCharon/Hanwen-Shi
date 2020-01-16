@@ -81,14 +81,14 @@ public:
             type2 = yu;
         }
     }
-    alltype &operator=(const alltype &a)
+    /*alltype &operator=(const alltype &a)
     {
         type0 = a.type0;
         type1 = a.type1;
         type2 = a.type2;
         type3 = a.type3;
         now = a.now;
-    }
+    }*/
     /*alltype(const alltype &a)
     {
         type0 = a.type0;
