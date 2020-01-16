@@ -53,12 +53,16 @@ public:
     }
     integer(int t)
     {
-        int tmp = 1;
+        int tmp = 1,k = t;
         if(t >= 0)zhf = 1;
-        else zhf = 0;
-        while(t / tmp >= 1)
+        else
         {
-            number.push_back(t % (tmp * 10) - t % tmp);
+            zhf = 0;
+            k = - k;
+        }
+        while(k / tmp >= 1)
+        {
+            number.push_back((k % (tmp * 10) - k % tmp) / tmp);
             tmp *= 10;
         }
         if(t == 0)number.push_back(0);

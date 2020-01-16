@@ -482,6 +482,9 @@ antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx)/
             int op = tmp.now;
             switch(op)
             {
+                case 0:
+                    ans = tmp;
+                    break;
                 case 1:
                     if(tmp.type1) ans.type0 = (integer)1;
                     else ans.type0 = (integer)0;

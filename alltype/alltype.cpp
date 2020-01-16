@@ -45,7 +45,7 @@ alltype operator+(const alltype &a,const alltype &b)
     if(a.now == 2 && b.now == 0)
     {
         ans.now = 2;
-        ans.type2 = a.type2 + (double)b.type1;
+        ans.type2 = a.type2 + (double)b.type0;
         return ans;
     }
     if(a.now == 2 && b.now == 1)
@@ -114,7 +114,7 @@ alltype operator-(const alltype &a,const alltype &b)
     if(a.now == 2 && b.now == 0)
     {
         ans.now = 2;
-        ans.type2 = a.type2 - (double)b.type1;
+        ans.type2 = a.type2 - (double)b.type0;
         return ans;
     }
     if(a.now == 2 && b.now == 1)
