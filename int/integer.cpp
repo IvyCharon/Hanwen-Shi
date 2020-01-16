@@ -111,7 +111,7 @@ integer operator-(const integer &a,const integer &b)
         return ans;
     }
     if(a.zhf == 1 && b.zhf == 0)return a + (-b);
-    if(a.zhf == 0 && b.zhf == 1)return a + (-b);
+    if(a.zhf == 0 && b.zhf == 1)return (-a) + b;
     if(a.zhf == 0 && b.zhf == 0)return (-b) - (-a);
     int n,t = 0;
     n = b.number.size();
@@ -133,8 +133,22 @@ integer operator-(const integer &a,const integer &b)
         }
         if(a.number.size() > n)
         {
-            ans.number.push_back(a.number[n] - t);
-            for(int i = n + 1;i < a.number.size();++ i)ans.number.push_back(a.number[i]);
+            if(t == 1)
+            {
+                int tt = n,k = 0;
+                while(a.number[tt] - t - k< 0)
+                {
+                    ans.number.push_back(a.number[tt] + 10 - t - k);
+                    k = 1;
+                    tt ++;
+                }
+                ans.number.push_back(a.number[tt] - t - k);
+                for(int i = n + 1;i < a.number.size();++ i)ans.number.push_back(a.number[i]);
+            }
+            else
+            {
+                for(int i = n + 1;i < a.number.size();++ i)ans.number.push_back(a.number[i]);
+            }
         }
         while(ans.number[ans.number.size() - 1] == 0)ans.number.pop_back();
         return ans;
