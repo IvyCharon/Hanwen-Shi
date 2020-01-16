@@ -136,10 +136,11 @@ integer operator-(const integer &a,const integer &b)
             if(t == 1)
             {
                 int tt = n,k = 0;
-                while(a.number[tt] - t - k< 0)
+                while(a.number[tt] - t - k < 0)
                 {
                     ans.number.push_back(a.number[tt] + 10 - t - k);
                     k = 1;
+                    t = 0;
                     tt ++;
                 }
                 ans.number.push_back(a.number[tt] - t - k);
