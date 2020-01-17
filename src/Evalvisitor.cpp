@@ -92,8 +92,7 @@ antlrcpp::Any EvalVisitor::visitExpr_stmt(Python3Parser::Expr_stmtContext *ctx)/
             switch(op)
             {
                 case 0:
-                    /*if(maps.empty())*/values[a[i].name] = values[a[i].name] + b[i];
-                    //else maps.top()[a[i].name] = maps.top()[a[i].name] + b[i];
+                    values[a[i].name] = values[a[i].name] + b[i];
                     break;
                 case 1:
                     /*if(maps.empty())*/values[a[i].name] = values[a[i].name] - b[i];
@@ -108,32 +107,19 @@ antlrcpp::Any EvalVisitor::visitExpr_stmt(Python3Parser::Expr_stmtContext *ctx)/
                     //else maps.top()[a[i].name] = (double)maps.top()[a[i].name] / (double)b[i];
                     break;
                 case 4:
-                    /*if(maps.empty())
-                    {*/
                         values[a[i].name] = values[a[i].name] / b[i];
-                        if(a[i].now == 2)
+                        if(values[a[i].name].now == 2)
                         {
-                            a[i].now = 0;
-                            a[i].type0 = (integer)a[i].type2;
-                            a[i].type2 = NULL;
+                            values[a[i].name].now = 0;
+                            values[a[i].name].type0 = (integer)values[a[i].name].type2;
+                            values[a[i].name].type2 = NULL;
                         }
-                    //}
-                    /*else
-                    {
-                        maps.top()[a[i].name] = maps.top()[a[i].name] / b[i];
-                        if(a[i].now == 2)
-                        {
-                            a[i].now = 0;
-                            a[i].type0 = (integer)a[i].type2;
-                            a[i].type2 = NULL;
-                        }
-                    }*/
                     break;
                 case 5:
-                    /*if(maps.empty())*/values[a[i].name] = values[a[i].name] % b[i];
-                    //else maps.top()[a[i].name] = maps.top()[a[i].name] % b[i];
+                    values[a[i].name] = values[a[i].name] % b[i];
                     break;
             }
+            values[a[i].name].name = a[i].name;
         }
         return nullptr;
     }

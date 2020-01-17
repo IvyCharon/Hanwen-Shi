@@ -197,6 +197,7 @@ integer operator/(const integer &a,const integer &b)
     integer ans,ANS;
     if(a.zhf == b.zhf)ans.zhf = 1;
     else ans.zhf = 0;
+    if(b == (integer) 1) return a;
     if(a == (integer)0)
     {
         ans.zhf = 1;
