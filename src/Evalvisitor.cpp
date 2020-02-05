@@ -579,6 +579,11 @@ antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx)
             visitSuite(nowfunc.suit);
             func_maps.pop();
             go.pop_back();
+            if(Rets.empty())
+            {
+                alltype tmp;
+                return tmp;
+            }
             if(!Rets.top().empty())
             {
                 std::vector<alltype> tmp = Rets.top();
