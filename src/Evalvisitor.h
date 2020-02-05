@@ -84,6 +84,13 @@ virtual antlrcpp::Any visitFile_input(Python3Parser::File_inputContext *ctx) ove
   virtual antlrcpp::Any visitArgument(Python3Parser::ArgumentContext *ctx) override;
 };
 
+std::map<std::string,alltype> & findmap(std::string name);
+
+struct para
+{
+    std::string name = "";
+    alltype it;
+};
 
 class ConBreRet
 {
@@ -93,12 +100,12 @@ public:
     ConBreRet(antlr4::tree::TerminalNode *p = nullptr) : NOW(p),upCon(0),upBre(0),upRet(0){};
 };
 
-class funs
+class Afunc
 {
 public:
-    std::string fname ;
-    std::vector<alltype> ftypelist;
-    Python3Parser::SuiteContext* fsuite;
+    std::string name;
+    std::vector<para> paralist;
+    Python3Parser::SuiteContext *suit;
 };
 
 #endif //PYTHON_INTERPRETER_EVALVISITOR_H
