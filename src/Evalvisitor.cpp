@@ -580,19 +580,15 @@ antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx)
             antlrcpp::Any cjh = visitSuite(nowfunc.suit);
             func_maps.pop();
             go.pop_back();
-            //if(!Rets.top().empty())
-            //{
-                std::vector<alltype> tmp = Rets.top();
-                Rets.pop();
-                if(tmp.size() == 1)return tmp[0];
-                else return tmp;
-            //}
-            /*else
+            std::vector<alltype> tmp = Rets.top();
+            Rets.pop();
+            if(tmp.size() == 1)return tmp[0];
+            if(tmp.size() == 0)
             {
-                Rets.pop();
-                alltype tmp;
-                return tmp;
-            }*/
+                alltype zzy;
+                return zzy;
+            }
+            else return tmp;
         }
     }
 }
@@ -699,12 +695,8 @@ antlrcpp::Any EvalVisitor::visitTestlist(Python3Parser::TestlistContext *ctx)
 {
     std::vector<alltype> ans;
     int n = ctx -> test().size();
-    antlrcpp::Any nn;
     for(int i = 0 ; i < n ; ++ i)
-    {
-        nn = visitTest(ctx -> test(i));
-        ans.push_back(nn.as<alltype>());
-    }
+        ans.push_back(visitTest(ctx -> test(i)).as<alltype>());
     return ans;
 }
 
