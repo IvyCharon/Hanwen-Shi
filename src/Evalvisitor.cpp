@@ -210,8 +210,7 @@ antlrcpp::Any EvalVisitor::visitReturn_stmt(Python3Parser::Return_stmtContext *c
         go[go.size() - 1].upRet = 1;
     std::vector<alltype> tmp;
     if(ctx -> testlist() != nullptr)
-        tmp = visitTestlist(ctx -> testlist()).as<std::vector<alltype>>();
-    Rets.push(tmp);
+        Rets.top() = visitTestlist(ctx -> testlist()).as<std::vector<alltype>>();
     return nullptr;
 }
 
@@ -562,6 +561,8 @@ antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx)
         else
         {
             Afunc nowfunc = functions[ctx -> atom() -> NAME() -> toString()];
+            std::vector<alltype> lucy;
+            Rets.push(lucy);
             ConBreRet yyh;
             go.push_back(yyh);
             std::map<std::string,alltype> nowmap;
@@ -576,26 +577,22 @@ antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx)
                     nowmap[zzj[i].name] = zzj[i].it;
             }
             func_maps.push(nowmap);
-            visitSuite(nowfunc.suit);
+            antlrcpp::Any cjh = visitSuite(nowfunc.suit);
             func_maps.pop();
             go.pop_back();
-            if(Rets.empty())
-            {
-                alltype tmp;
-                return tmp;
-            }
-            if(!Rets.top().empty())
-            {
+            //if(!Rets.top().empty())
+            //{
                 std::vector<alltype> tmp = Rets.top();
                 Rets.pop();
-                return tmp;
-            }
-            else
+                if(tmp.size() == 1)return tmp[0];
+                else return tmp;
+            //}
+            /*else
             {
                 Rets.pop();
                 alltype tmp;
                 return tmp;
-            }
+            }*/
         }
     }
 }
