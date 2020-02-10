@@ -281,7 +281,8 @@ antlrcpp::Any EvalVisitor::visitOr_test(Python3Parser::Or_testContext *ctx)
     if(ctx -> and_test().size() == 1)return visitAnd_test(ctx -> and_test(0));
     alltype ans = visitAnd_test(ctx -> and_test(0)).as<alltype>();
     ans.now = 1;
-    for(int i = 0;i < ctx -> OR().size();++ i)
+    ans.name = "";
+    for(int i = 1;i < ctx -> and_test().size();++ i)
     {
         if(ans.type1)break;
         ans.type1 = ans || visitAnd_test(ctx -> and_test(i)).as<alltype>();
@@ -294,7 +295,8 @@ antlrcpp::Any EvalVisitor::visitAnd_test(Python3Parser::And_testContext *ctx)
     if(ctx -> not_test().size() == 1)return visitNot_test(ctx -> not_test(0));
     alltype ans = visitNot_test(ctx -> not_test(0)).as<alltype>();
     ans.now = 1;
-    for(int i = 0;i < ctx -> AND().size();++ i)
+    ans.name = "";
+    for(int i = 1;i < ctx -> not_test().size();++ i)
     {
         if(!ans.type1)break;
         ans.type1 = ans && visitNot_test(ctx -> not_test(i)).as<alltype>();

@@ -467,7 +467,7 @@ alltype::operator bool() const
     switch (op)
     {
         case 0:
-            if(type0) return true;
+            if((bool)type0) return true;
             else return false;
         case 1:
             return type1;
