@@ -228,7 +228,7 @@ antlrcpp::Any EvalVisitor::visitIf_stmt(Python3Parser::If_stmtContext *ctx)
     go.push_back(mm);
     for(int i = 0;i < ctx -> test().size();++ i)
     {
-        if(visitTest(ctx -> test(i)).as<alltype>().type1)
+        if(visitTest(ctx -> test(i)).as<alltype>())
         {
             visitSuite(ctx -> suite(i));
             go.pop_back();
@@ -237,11 +237,12 @@ antlrcpp::Any EvalVisitor::visitIf_stmt(Python3Parser::If_stmtContext *ctx)
     }
     if(ctx -> ELSE() != nullptr)
     {
-        visitSuite(ctx -> suite()[ctx -> suite().size() - 1]);
+        visitSuite(ctx -> suite(ctx -> suite().size() - 1));
         go.pop_back();
         return nullptr;
     }
     go.pop_back();
+    return nullptr;
 }
 
 antlrcpp::Any EvalVisitor::visitWhile_stmt(Python3Parser::While_stmtContext *ctx)
@@ -249,7 +250,7 @@ antlrcpp::Any EvalVisitor::visitWhile_stmt(Python3Parser::While_stmtContext *ctx
     ConBreRet lp(ctx -> WHILE());
     go.push_back(lp);
     alltype j = visitTest(ctx -> test()).as<alltype>();
-    while(j.type1)
+    while(j)
     {
         visitSuite(ctx -> suite());
         if(go[go.size() - 1].upBre || go[go.size() - 1].upRet) break;
@@ -265,7 +266,7 @@ antlrcpp::Any EvalVisitor::visitSuite(Python3Parser::SuiteContext *ctx)
     for(int i = 0;i < ctx -> stmt().size();++ i)
     {
         visitStmt(ctx -> stmt(i));
-        if(go[go.size() - 1].upBre || go[go.size() - 1].upCon || go[go.size() - 1].upRet)break;
+        if(go[go.size() - 1].upBre || go[go.size() - 1].upCon || go[go.size() - 1].upRet) break;
     }
     return nullptr;
 }
