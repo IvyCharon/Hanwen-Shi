@@ -585,6 +585,7 @@ antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx)
             go.pop_back();
             std::vector<alltype> tmp = Rets.top();
             Rets.pop();
+            for(int i = 0;i < tmp.size();++ i)tmp[i].name = "";
             if(tmp.size() == 1)return tmp[0];
             if(tmp.size() == 0)
             {
